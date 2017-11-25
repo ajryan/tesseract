@@ -39,7 +39,7 @@ namespace Tesseract.Tests.Leptonica
 
         [Test]
         [TestCase(1)] // Note: 1bpp will not save pixmap when writing out the result, this is a limitation of leptonica (see pixWriteToTiffStream)
-        [TestCase(4, Ignore = true, Reason = "4bpp images not supported.")]
+        [TestCase(4, Ignore = "4bpp images not supported.")]
         [TestCase(8)]
         [TestCase(32)]
         public unsafe void Convert_BitmapToPix(int depth)
@@ -91,10 +91,10 @@ namespace Tesseract.Tests.Leptonica
         [Test]
         [TestCase(1, true, false)]
         [TestCase(1, false, false)]
-        [TestCase(4, false, false, Ignore = true, Reason = "4bpp images not supported.")]
-        [TestCase(4, true, false, Ignore = true, Reason = "4bpp images not supported.")]
+        [TestCase(4, false, false, Ignore = "4bpp images not supported.")]
+        [TestCase(4, true, false, Ignore = "4bpp images not supported.")]
         [TestCase(8, false, false)]
-        [TestCase(8, true, false, Ignore = true, Reason = "Haven't yet created a 8bpp grayscale test image.")]
+        [TestCase(8, true, false, Ignore = "Haven't yet created a 8bpp grayscale test image.")]
         [TestCase(32, false, true)]
         [TestCase(32, false, false)]
         public unsafe void Convert_PixToBitmap(int depth, bool isGrayscale, bool includeAlpha)

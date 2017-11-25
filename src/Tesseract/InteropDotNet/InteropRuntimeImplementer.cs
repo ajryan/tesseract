@@ -21,7 +21,7 @@ namespace InteropDotNet
                 throw new Exception(string.Format("The interface {0} should be public", interfaceType.Name));
 
             var assemblyName = GetAssemblyName(interfaceType);
-            var assemblyBuilder = Thread.GetDomain().DefineDynamicAssembly(new AssemblyName(assemblyName), AssemblyBuilderAccess.Run);
+            var assemblyBuilder = AssemblyBuilder.DefineDynamicAssembly(new AssemblyName(assemblyName), AssemblyBuilderAccess.Run);
             var moduleBuilder = assemblyBuilder.DefineDynamicModule(assemblyName);
 
             var typeName = GetImplementationTypeName(assemblyName, interfaceType);
@@ -34,7 +34,7 @@ namespace InteropDotNet
             ImplementMethods(typeBuilder, methods);
             ImplementConstructor(typeBuilder, methods);
 
-            var implementationType = typeBuilder.CreateType();
+            var implementationType = typeBuilder.CreateTypeInfo();
             return (T)Activator.CreateInstance(implementationType, LibraryLoader.Instance);
         }
 
@@ -120,7 +120,7 @@ namespace InteropDotNet
             methodBuilder.SetImplementationFlags(MethodImplAttributes.CodeTypeMask);
 
             // Create type
-            return delegateBuilder.CreateType();
+            return delegateBuilder.CreateTypeInfo();
         }
 
         private static void ImplementFields(TypeBuilder typeBuilder, IEnumerable<MethodItem> methods)
