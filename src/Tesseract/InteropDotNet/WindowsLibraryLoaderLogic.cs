@@ -81,16 +81,31 @@ namespace InteropDotNet
             return fileName;
         }
 
-        [DllImport("kernel32", EntryPoint = "LoadLibrary", CallingConvention = CallingConvention.Winapi,
-            SetLastError = true, CharSet = CharSet.Auto, BestFitMapping = false, ThrowOnUnmappableChar = true)]
+        [DllImport(
+            "kernel32",
+            EntryPoint = "LoadLibrary",
+            CallingConvention = CallingConvention.Winapi,
+            SetLastError = true,
+#if !NETSTANDARD2_0
+            CharSet = CharSet.Auto,
+#endif
+            BestFitMapping = false,
+            ThrowOnUnmappableChar = true)]
         private static extern IntPtr WindowsLoadLibrary(string dllPath);
 
-        [DllImport("kernel32", EntryPoint = "FreeLibrary", CallingConvention = CallingConvention.Winapi,
-            SetLastError = true, CharSet = CharSet.Auto, BestFitMapping = false, ThrowOnUnmappableChar = true)]
+        [DllImport(
+            "kernel32",
+            EntryPoint = "FreeLibrary",
+            CallingConvention = CallingConvention.Winapi,
+            SetLastError = true,
+#if !NETSTANDARD2_0
+            CharSet = CharSet.Auto,
+#endif
+            BestFitMapping = false,
+            ThrowOnUnmappableChar = true)]
         private static extern bool WindowsFreeLibrary(IntPtr handle);
 
-        [DllImport("kernel32", EntryPoint = "GetProcAddress", CallingConvention = CallingConvention.Winapi,
-            SetLastError = true)]
+        [DllImport("kernel32", EntryPoint = "GetProcAddress", CallingConvention = CallingConvention.Winapi, SetLastError = true)]
         private static extern IntPtr WindowsGetProcAddress(IntPtr handle, string procedureName);
 
         private static int WindowsGetLastError()

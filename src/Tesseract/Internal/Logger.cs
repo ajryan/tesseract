@@ -9,8 +9,8 @@ namespace Tesseract.Internal
 {
     static class Logger
     {
-        const bool printToConsole = false;
-		readonly static TraceSource trace = new TraceSource("Tesseract");
+        public static bool PrintToConsole { get; set; } = false;
+        private static readonly TraceSource trace = new TraceSource("Tesseract");
 
         private static void Print(string message)
         {
@@ -21,7 +21,7 @@ namespace Tesseract.Internal
 
         public static void TraceInformation(string format, params object[] args)
         {
-            if (printToConsole)
+            if (PrintToConsole)
                 Print(string.Format(CultureInfo.CurrentCulture, format, args));
             else
                 trace.TraceEvent(TraceEventType.Information, 0, string.Format(CultureInfo.CurrentCulture, format, args));
@@ -29,7 +29,7 @@ namespace Tesseract.Internal
 
         public static void TraceError(string format, params object[] args)
         {
-            if (printToConsole)
+            if (PrintToConsole)
                 Print(string.Format(CultureInfo.CurrentCulture, format, args));
             else
                 trace.TraceEvent(TraceEventType.Error, 0, string.Format(CultureInfo.CurrentCulture, format, args));
@@ -37,7 +37,7 @@ namespace Tesseract.Internal
 
         public static void TraceWarning(string format, params object[] args)
         {
-            if (printToConsole)
+            if (PrintToConsole)
                 Print(string.Format(CultureInfo.CurrentCulture, format, args));
             else
                 trace.TraceEvent(TraceEventType.Warning, 0, string.Format(CultureInfo.CurrentCulture, format, args));

@@ -5,7 +5,11 @@ using System.Text;
 namespace Tesseract
 {
     [Serializable]
+#if NETSTANDARD2_0
+    public class LoadLibraryException : Exception
+#else
     public class LoadLibraryException : SystemException
+#endif
     {
         public LoadLibraryException() { }
         public LoadLibraryException(string message) : base(message) { }

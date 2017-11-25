@@ -138,6 +138,7 @@ namespace Tesseract.Tests
             }
         }
 
+#pragma warning disable 618 // Testing obsolete method
         [Test]
         [TestCase(0)]
         [TestCase(90)]
@@ -151,8 +152,8 @@ namespace Tesseract.Tests
                         Orientation orientation;
                         float confidence;
 
+
                         page.DetectBestOrientation(out orientation, out confidence);
-                        
                         Orientation expectedOrientation;
                         float expectedDeskew;
                         ExpectedOrientation(expectedOrientationDegrees, out expectedOrientation, out expectedDeskew);
@@ -162,7 +163,7 @@ namespace Tesseract.Tests
                 }
             }
         }
-
+#pragma warning restore 618
 
         [Test]
         public void GetImage(

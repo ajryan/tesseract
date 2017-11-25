@@ -5,9 +5,8 @@ using System.Drawing;
 using System.Globalization;
 using System.IO;
 using System.Linq;
-using System.Runtime.InteropServices;
+using System.Reflection;
 using System.Text;
-using Tesseract.Interop;
 
 namespace Tesseract.Tests
 {
@@ -366,12 +365,12 @@ NormaliseNewLine(@"</word></line>
         [Test]
         public void Initialise_WithTessDataPrefixSet()
         {
-            Environment.SetEnvironmentVariable("TESSDATA_PREFIX", Environment.CurrentDirectory);
+            Environment.SetEnvironmentVariable("TESSDATA_PREFIX", Assembly.GetExecutingAssembly().CodeBase);
             using (var engine = new TesseractEngine(null, "eng", EngineMode.Default)) {
             }
         }
 
-        private IEnumerable<string> DataPaths()
+        private static IEnumerable<string> DataPaths()
         {
             return new string[] {
                 null,
